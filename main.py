@@ -1,17 +1,16 @@
 import sys
 
-sys.stdout.reconfigure(encoding='utf-8')
+
 from funcoes import carregar_csv
 from funcoes import gerar_resumo_inicial
 from funcoes import tratar_produtos
 from funcoes import tratar_pedidos
 from funcoes import gerar_resumo_final
-from funcoes import gerar_grafico
 from funcoes import montar_relatorio
 from funcoes import exibir_display
 from funcoes import salvar_relatorio
 
-
+sys.stdout.reconfigure(encoding='utf-8')
 
 def main():
 
@@ -68,21 +67,6 @@ def main():
         produtos_tratados
     )
  
-    # ======================================================
-    # GRÁFICOS
-    # ======================================================
-
-    grafico_categorias = gerar_grafico(
-        "CATEGORIAS VAZIAS",
-        resumo_inicial["categorias_vazias"],
-        0
-    )
-
-    grafico_dimensoes = gerar_grafico(
-        "DIMENSÕES VAZIAS",
-        resumo_inicial["dimensoes_vazias"],
-        0
-    )
 
     # ======================================================
     # RELATÓRIO
@@ -92,8 +76,7 @@ def main():
         resumo_inicial,
         resumo_final,
         pedidos_tratados,
-        grafico_categorias,
-        grafico_dimensoes
+        
     )
 
     # ======================================================

@@ -326,30 +326,6 @@ def gerar_resumo_final(resultado):
 
 
 # ==========================================================
-# GRÁFICOS ASCII
-# ==========================================================
-
-def gerar_grafico(
-    titulo,
-    antes,
-    depois
-):
-
-    barra_antes = "#" * max(1, int(antes / 10))
-
-    barra_depois = "#" * max(1, int(depois / 10))
-
-    return f"""
-{titulo}
-
-ANTES : {antes}
-{barra_antes}
-
-DEPOIS: {depois}
-{barra_depois}
-"""
-
-# ==========================================================
 # RELATÓRIO
 # ==========================================================
 
@@ -357,8 +333,7 @@ def montar_relatorio(
     resumo_inicial,
     resumo_final,
     pedidos,
-    grafico_categorias,
-    grafico_dimensoes,
+    
     
 ):
 
@@ -404,14 +379,6 @@ Pedidos sem entrega mas NÃO cancelados:
 HIPÓTESE DE NEGÓCIO:
 {pedidos['hipotese']}
 
-
-============================================================
-GRÁFICOS COMPARATIVOS
-============================================================
-
-{grafico_categorias}
-
-{grafico_dimensoes}
 
 
 ============================================================

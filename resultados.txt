@@ -41,30 +41,6 @@ HIPÓTESE DE NEGÓCIO:
 HIPÓTESE REFUTADA: existem pedidos com entrega vazia que NÃO estão cancelados.
 
 
-============================================================
-GRÁFICOS COMPARATIVOS
-============================================================
-
-
-CATEGORIAS VAZIAS
-
-ANTES : 610
-#############################################################
-
-DEPOIS: 0
-#
-
-
-
-DIMENSÕES VAZIAS
-
-ANTES : 8
-#
-
-DEPOIS: 0
-#
-
-
 
 ============================================================
 STATUS FINAL
