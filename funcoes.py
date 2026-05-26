@@ -35,7 +35,7 @@ def limpar_categoria(categoria):
     categoria = categoria.strip().lower()
 
     categoria = re.sub(
-        r'[^a-z0-9\s]',
+        r'[^a-zA-Zà-úÀ-Ú0-9\s_]',
         '',
         categoria
     )
@@ -64,7 +64,7 @@ def converter_data(data_string):
             "%d/%m/%Y"
         )
 
-    except:
+    except ValueError:
 
         return "data inválida"
 
@@ -275,6 +275,20 @@ def tratar_pedidos(pedidos):
                 pedido["order_approved_at"]
             )
         )
+        if entregas_vazias_nao_canceladas == 0:
+
+            hipotese = (
+                "HIPÓTESE CONFIRMADA: "
+                "todas as entregas vazias "
+                "pertencem a pedidos cancelados."
+            ) 
+        else:
+
+            hipotese = (
+                "HIPÓTESE REFUTADA: "
+                "existem pedidos com entrega vazia "
+                "que NÃO estão cancelados."
+            )
 
     return {
         "total_pedidos":
@@ -284,7 +298,10 @@ def tratar_pedidos(pedidos):
             pedidos_cancelados,
 
         "entregas_vazias_nao_canceladas":
-            entregas_vazias_nao_canceladas
+            entregas_vazias_nao_canceladas,
+
+        "hipotese": 
+            hipotese
     }
 
 
@@ -318,9 +335,9 @@ def gerar_grafico(
     depois
 ):
 
-    barra_antes = "#" * int(antes / 10)
+    barra_antes = "#" * max(1, int(antes / 10))
 
-    barra_depois = "#" * int(depois / 10)
+    barra_depois = "#" * max(1, int(depois / 10))
 
     return f"""
 {titulo}
@@ -333,87 +350,6 @@ DEPOIS: {depois}
 """
 
 # ==========================================================
-# VISUALIZAÇÃO DE TABELA
-# ==========================================================
-
-def visualizar_csv_tabela(dados, limite=100):
-    """
-    Exibe os dados em formato de tabela.
-    """
-    if not dados:
-        print("Nenhum dado encontrado para exibição.")
-        return
-
-    # Pega nomes das colunas
-    colunas = list(dados[0].keys())
-
-    # ======================================================
-    # CALCULA LARGURA DAS COLUNAS
-    # ======================================================
-    larguras = {}
-
-    for coluna in colunas:
-        maior = len(coluna)
-
-        for linha in dados[:limite]:
-            # Usar get previne erros se a chave não existir na linha
-            tamanho = len(str(linha.get(coluna, ""))) 
-
-            if tamanho > maior:
-                maior = tamanho
-
-        larguras[coluna] = maior + 2
-
-    # ======================================================
-    # LINHA SUPERIOR
-    # ======================================================
-    linha_divisoria = "+"
-
-    for coluna in colunas:
-        linha_divisoria += "-" * larguras[coluna] + "+"
-
-    print(linha_divisoria)
-
-    # ======================================================
-    # CABEÇALHO
-    # ======================================================
-    cabecalho = "|"
-
-    for coluna in colunas:
-        cabecalho += (
-            " "
-            + coluna.ljust(larguras[coluna] - 1)
-            + "|"
-        )
-
-    print(cabecalho)
-    print(linha_divisoria)
-
-    # ======================================================
-    # DADOS
-    # ======================================================
-    for registro in dados[:limite]:
-        linha_dados = "|"
-
-        for coluna in colunas:
-            valor = str(registro.get(coluna, ""))
-
-            linha_dados += (
-                " "
-                + valor.ljust(larguras[coluna] - 1)
-                + "|"
-            )
-
-        print(linha_dados)
-
-    print(linha_divisoria)
-    
-    # Ajustei para exibir a quantidade real caso o CSV tenha menos linhas que o limite
-    quantidade_exibida = len(dados[:limite])
-    print(f"\nExibindo {quantidade_exibida} registros.")
-
-
-# ==========================================================
 # RELATÓRIO
 # ==========================================================
 
@@ -422,7 +358,8 @@ def montar_relatorio(
     resumo_final,
     pedidos,
     grafico_categorias,
-    grafico_dimensoes
+    grafico_dimensoes,
+    
 ):
 
     return f"""
@@ -463,6 +400,9 @@ Pedidos cancelados:
 
 Pedidos sem entrega mas NÃO cancelados:
 {pedidos['entregas_vazias_nao_canceladas']}
+
+HIPÓTESE DE NEGÓCIO:
+{pedidos['hipotese']}
 
 
 ============================================================

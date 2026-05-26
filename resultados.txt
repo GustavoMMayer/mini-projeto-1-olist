@@ -37,6 +37,9 @@ Pedidos cancelados:
 Pedidos sem entrega mas NÃO cancelados:
 2346
 
+HIPÓTESE DE NEGÓCIO:
+HIPÓTESE REFUTADA: existem pedidos com entrega vazia que NÃO estão cancelados.
+
 
 ============================================================
 GRÁFICOS COMPARATIVOS
@@ -49,17 +52,17 @@ ANTES : 610
 #############################################################
 
 DEPOIS: 0
-
+#
 
 
 
 DIMENSÕES VAZIAS
 
 ANTES : 8
-
+#
 
 DEPOIS: 0
-
+#
 
 
 

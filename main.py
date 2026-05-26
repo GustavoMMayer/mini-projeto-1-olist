@@ -1,4 +1,3 @@
-import os
 import sys
 
 sys.stdout.reconfigure(encoding='utf-8')
@@ -11,7 +10,7 @@ from funcoes import gerar_grafico
 from funcoes import montar_relatorio
 from funcoes import exibir_display
 from funcoes import salvar_relatorio
-from funcoes import visualizar_csv_tabela
+
 
 
 def main():
@@ -44,8 +43,6 @@ def main():
     resumo_inicial = gerar_resumo_inicial(
         produtos
     )
-
-
 
     # ======================================================
     # TRATAMENTO DOS DADOS
@@ -115,10 +112,7 @@ def main():
 
     print("\nPipeline executado com sucesso.")
 
-    print("produtos:")
-    visualizar_csv_tabela(produtos, limite=10)
-    print("produtos tratados:")
-    visualizar_csv_tabela(produtos_tratados, limite=10)
+  
 
 
 if __name__ == "__main__":

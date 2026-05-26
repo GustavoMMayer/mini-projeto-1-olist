@@ -2,20 +2,45 @@
 
 ## Descrição do Projeto
 
-Este projeto tem como objetivo realizar a sanitização de dados da base da Olist utilizando apenas bibliotecas nativas do Python.
+Este projeto realiza a sanitização de dados da base da Olist
+utilizando apenas bibliotecas nativas do Python, sem Pandas.
 
-O sistema realiza:
-- leitura de arquivos CSV;
-- tratamento de valores nulos;
-- limpeza e padronização de strings;
-- validação de regras de negócio;
-- formatação de datas;
-- geração de relatório estatístico.
+O pipeline executa:
+- Leitura de arquivos CSV com `csv.DictReader`
+- Tratamento de valores nulos (categorias e dimensões físicas)
+- Limpeza e padronização de strings com `re` e métodos nativos
+- Validação de regra de negócio (pedidos cancelados vs. entregas vazias)
+- Formatação de datas com `datetime`
+- Geração de relatório estatístico exportado em `.txt`
 
-O projeto foi desenvolvido sem o uso da biblioteca Pandas, utilizando apenas:
-- csv
-- re
-- datetime
 
----
+## Reflexão Teórica sobre Machine Learning
 
+A qualidade dos dados é o alicerce de qualquer modelo de Machine
+Learning. Quando alimentamos um algoritmo com dados sujos —
+categorias nulas, dimensões ausentes ou datas mal formatadas —
+o modelo aprende padrões incorretos ou enviesados, fenômeno
+conhecido como *Garbage In, Garbage Out*. Isso pode gerar
+**overfitting**, onde o modelo decora ruídos dos dados de treino
+e performa mal em dados novos, ou **underfitting**, quando a
+sujeira mascara padrões reais e o modelo não consegue aprender
+nada útil.
+
+Ao preencher valores nulos com a média da coluna, padronizar
+strings e separar registros inconsistentes antes do treinamento,
+garantimos que o modelo receba uma representação fiel da
+realidade. No contexto da Olist, um modelo de previsão de
+atrasos de entrega treinado com datas vazias ou pedidos
+cancelados misturados com pedidos ativos produziria previsões
+inúteis. O pipeline de sanitização desenvolvido aqui é,
+portanto, uma etapa indispensável antes de qualquer aplicação
+de inteligência artificial sobre estes dados.
+
+## Estrutura do Projeto
+├── main.py         # Script principal (orquestra o pipeline)
+├── funcoes.py      # Funções auxiliares de tratamento
+├── resultados.txt  # Relatório gerado após execução
+├── README.md       # Documentação
+└── data/
+├── olist_products_dataset.csv
+└── olist_orders_dataset.csv
