@@ -30,7 +30,7 @@ O pipeline executa:
    python main.py
 ```
 
-5. O relatório será gerado em `resultados.txt`.
+5. O relatório será gerado em `resultados.txt`, CSV tratado adicionado a pasta data.
 
 
 ## Reflexão Teórica sobre Machine Learning
