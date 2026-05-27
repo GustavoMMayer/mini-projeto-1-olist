@@ -47,6 +47,11 @@ def main():
     # TRATAMENTO DOS DADOS
     # ======================================================
 
+    # Escolha técnica: nulos substituídos pela média da coluna.
+    # A remoção do registro foi descartada pois geraria perda de dados
+    # que comprometeria a representatividade do dataset em modelos de ML.
+
+
     produtos_tratados = tratar_produtos(
         produtos
     )
@@ -75,7 +80,7 @@ def main():
     relatorio = montar_relatorio(
         resumo_inicial,
         resumo_final,
-        pedidos_tratados,
+        pedidos_tratados
         
     )
 

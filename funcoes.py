@@ -275,20 +275,27 @@ def tratar_pedidos(pedidos):
                 pedido["order_approved_at"]
             )
         )
-        if entregas_vazias_nao_canceladas == 0:
 
-            hipotese = (
-                "HIPÓTESE CONFIRMADA: "
-                "todas as entregas vazias "
-                "pertencem a pedidos cancelados."
-            ) 
-        else:
+    # ====================================================
+    # VALIDAÇÃO DA HIPÓTESE — fora do loop para garantir
+    # que o resultado reflita o processamento completo
+    # ====================================================
 
-            hipotese = (
-                "HIPÓTESE REFUTADA: "
-                "existem pedidos com entrega vazia "
-                "que NÃO estão cancelados."
-            )
+    if entregas_vazias_nao_canceladas == 0:
+
+        hipotese = (
+            "HIPÓTESE CONFIRMADA: "
+            "todas as entregas vazias "
+            "pertencem a pedidos cancelados."
+        )
+
+    else:
+
+        hipotese = (
+            "HIPÓTESE REFUTADA: "
+            "existem pedidos com entrega vazia "
+            "que NÃO estão cancelados."
+        )
 
     return {
         "total_pedidos":
@@ -300,7 +307,7 @@ def tratar_pedidos(pedidos):
         "entregas_vazias_nao_canceladas":
             entregas_vazias_nao_canceladas,
 
-        "hipotese": 
+        "hipotese":
             hipotese
     }
 
@@ -332,8 +339,7 @@ def gerar_resumo_final(resultado):
 def montar_relatorio(
     resumo_inicial,
     resumo_final,
-    pedidos,
-    
+    pedidos    
     
 ):
 
