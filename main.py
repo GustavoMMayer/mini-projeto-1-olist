@@ -1,7 +1,7 @@
 import sys
 
 
-from funcoes import carregar_csv
+from funcoes import carregar_csv, salvar_csv
 from funcoes import gerar_resumo_inicial
 from funcoes import tratar_produtos
 from funcoes import tratar_pedidos
@@ -13,6 +13,11 @@ from funcoes import salvar_relatorio
 sys.stdout.reconfigure(encoding='utf-8')
 
 def main():
+    products_path = "data/olist_products_dataset.csv"
+    orders_path = "data/olist_orders_dataset.csv"
+    produscts_tratados_path = "data/olist_products_dataset_limpo.csv"
+    orders_tratados_path = "data/olist_orders_dataset_limpo.csv"
+
 
     print("=" * 60)
     print("SISTEMA DE TRATAMENTO DE DADOS - OLIST")
@@ -26,11 +31,11 @@ def main():
     # ======================================================
 
     produtos = carregar_csv(
-        "data/olist_products_dataset.csv"
+        products_path
     )
 
     pedidos = carregar_csv(
-        "data/olist_orders_dataset.csv"
+        orders_path
     )
 
     print("Arquivos carregados com sucesso.\n")
@@ -97,6 +102,22 @@ def main():
     salvar_relatorio(relatorio)
 
     print("\nRelatório salvo em resultados.txt")
+
+    # ======================================================
+    # SALVAR BASES CORRIGIDAS
+    # ======================================================
+
+    salvar_csv(
+        produscts_tratados_path,
+        produtos_tratados["produtos"]
+    )
+
+    salvar_csv(
+        orders_tratados_path,
+        pedidos
+    )
+
+    print("\nBases corrigidas salvas na pasta data/")
 
     print("\nPipeline executado com sucesso.")
 

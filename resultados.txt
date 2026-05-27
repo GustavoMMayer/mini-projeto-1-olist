@@ -12,7 +12,6 @@ Categorias vazias:
 Dimensões vazias:
 8
 
-
 ============================================================
 RELATÓRIO FINAL
 ============================================================
@@ -22,7 +21,6 @@ Categorias corrigidas:
 
 Dimensões corrigidas:
 8
-
 
 ============================================================
 REGRAS DE NEGÓCIO
@@ -39,8 +37,6 @@ Pedidos sem entrega mas NÃO cancelados:
 
 HIPÓTESE DE NEGÓCIO:
 HIPÓTESE REFUTADA: existem pedidos com entrega vazia que NÃO estão cancelados.
-
-
 
 ============================================================
 STATUS FINAL

@@ -276,10 +276,7 @@ def tratar_pedidos(pedidos):
             )
         )
 
-    # ====================================================
-    # VALIDAÇÃO DA HIPÓTESE — fora do loop para garantir
-    # que o resultado reflita o processamento completo
-    # ====================================================
+    
 
     if entregas_vazias_nao_canceladas == 0:
 
@@ -357,7 +354,6 @@ Categorias vazias:
 Dimensões vazias:
 {resumo_inicial['dimensoes_vazias']}
 
-
 ============================================================
 RELATÓRIO FINAL
 ============================================================
@@ -367,7 +363,6 @@ Categorias corrigidas:
 
 Dimensões corrigidas:
 {resumo_final['dimensoes_corrigidas']}
-
 
 ============================================================
 REGRAS DE NEGÓCIO
@@ -385,15 +380,12 @@ Pedidos sem entrega mas NÃO cancelados:
 HIPÓTESE DE NEGÓCIO:
 {pedidos['hipotese']}
 
-
-
 ============================================================
 STATUS FINAL
 ============================================================
 
 Base sanitizada com sucesso.
 """
-
 
 # ==========================================================
 # DISPLAY
@@ -430,3 +422,24 @@ def salvar_relatorio(relatorio):
     ) as arquivo:
 
         arquivo.write(relatorio)
+
+# ==========================================================
+# SALVAR BASES CORRIGIDAS
+# ==========================================================
+
+def salvar_csv(caminho, dados):
+
+    if not dados:
+        return
+
+    campos = dados[0].keys()
+
+    with open(caminho, "w", encoding="utf-8", newline="") as arquivo:
+
+        escritor = csv.DictWriter(arquivo, fieldnames=campos)
+
+        escritor.writeheader()
+
+        for linha in dados:
+
+            escritor.writerow(linha)
