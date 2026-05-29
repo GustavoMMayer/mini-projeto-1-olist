@@ -295,17 +295,19 @@ def tratar_pedidos(pedidos):
         )
 
     return {
-        "total_pedidos":
-            total_pedidos,
+         "pedidos": pedidos,
 
-        "pedidos_cancelados":
-            pedidos_cancelados,
+         "total_pedidos":
+             total_pedidos,
 
-        "entregas_vazias_nao_canceladas":
-            entregas_vazias_nao_canceladas,
+         "pedidos_cancelados":
+             pedidos_cancelados,
 
-        "hipotese":
-            hipotese
+         "entregas_vazias_nao_canceladas":
+             entregas_vazias_nao_canceladas,
+
+          "hipotese":
+             hipotese
     }
 
 

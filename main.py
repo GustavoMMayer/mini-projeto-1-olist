@@ -1,14 +1,7 @@
 import sys
 
 
-from funcoes import carregar_csv, salvar_csv
-from funcoes import gerar_resumo_inicial
-from funcoes import tratar_produtos
-from funcoes import tratar_pedidos
-from funcoes import gerar_resumo_final
-from funcoes import montar_relatorio
-from funcoes import exibir_display
-from funcoes import salvar_relatorio
+import funcoes as fc
 
 sys.stdout.reconfigure(encoding='utf-8')
 
@@ -30,11 +23,11 @@ def main():
     # LEITURA / CARREGAMENTO DOS DADOS
     # ======================================================
 
-    produtos = carregar_csv(
+    produtos = fc.carregar_csv(
         products_path
     )
 
-    pedidos = carregar_csv(
+    pedidos = fc.carregar_csv(
         orders_path
     )
 
@@ -44,7 +37,7 @@ def main():
     # RESUMO INICIAL
     # ======================================================
 
-    resumo_inicial = gerar_resumo_inicial(
+    resumo_inicial = fc.gerar_resumo_inicial(
         produtos
     )
 
@@ -57,7 +50,7 @@ def main():
     # que comprometeria a representatividade do dataset em modelos de ML.
 
 
-    produtos_tratados = tratar_produtos(
+    produtos_tratados = fc.tratar_produtos(
         produtos
     )
 
@@ -65,7 +58,7 @@ def main():
     # REGRAS DE NEGÓCIO
     # ======================================================
 
-    pedidos_tratados = tratar_pedidos(
+    pedidos_tratados = fc.tratar_pedidos(
         pedidos
     )
 
@@ -73,7 +66,7 @@ def main():
     # RESUMO FINAL
     # ======================================================
 
-    resumo_final = gerar_resumo_final(
+    resumo_final = fc.gerar_resumo_final(
         produtos_tratados
     )
  
@@ -82,7 +75,7 @@ def main():
     # RELATÓRIO
     # ======================================================
 
-    relatorio = montar_relatorio(
+    relatorio = fc.montar_relatorio(
         resumo_inicial,
         resumo_final,
         pedidos_tratados
@@ -93,13 +86,13 @@ def main():
     # DISPLAY
     # ======================================================
 
-    exibir_display(relatorio)
+    fc.exibir_display(relatorio)
 
     # ======================================================
     # SALVAR TXT
     # ======================================================
 
-    salvar_relatorio(relatorio)
+    fc.salvar_relatorio(relatorio)
 
     print("\nRelatório salvo em resultados.txt")
 
@@ -107,14 +100,14 @@ def main():
     # SALVAR BASES CORRIGIDAS
     # ======================================================
 
-    salvar_csv(
+    fc.salvar_csv(
         produscts_tratados_path,
         produtos_tratados["produtos"]
     )
 
-    salvar_csv(
+    fc.salvar_csv(
         orders_tratados_path,
-        pedidos
+        pedidos_tratados["pedidos"]
     )
 
     print("\nBases corrigidas salvas na pasta data/")
